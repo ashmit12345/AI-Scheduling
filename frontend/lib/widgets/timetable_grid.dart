@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/schedule_slot_model.dart';
+import '../models/schedule_slot_model.dart';
 
 /// Default day ordering used when the caller doesn't supply its own.
 const List<String> kDefaultWeekDays = [
@@ -55,9 +55,7 @@ class TimetableGrid extends StatelessWidget {
   /// O(1) lookup of a slot by (day, timeSlot) instead of scanning the list
   /// per cell — matters once a full week's worth of slots is rendered.
   Map<String, ScheduleSlotModel> _indexSlots() {
-    return {
-      for (final slot in slots) '${slot.day}|${slot.timeSlot}': slot,
-    };
+    return {for (final slot in slots) '${slot.day}|${slot.timeSlot}': slot};
   }
 
   @override
@@ -78,8 +76,16 @@ class TimetableGrid extends StatelessWidget {
               _buildHeaderRow(theme, timeColumnWidth),
               Divider(height: 1, color: theme.colorScheme.outlineVariant),
               ...timeSlots.map(
-                (slot) => _buildRow(context, theme, slot, index, timeColumnWidth,
-                    needsScroll ? columnWidth : (constraints.maxWidth - timeColumnWidth) / days.length),
+                (slot) => _buildRow(
+                  context,
+                  theme,
+                  slot,
+                  index,
+                  timeColumnWidth,
+                  needsScroll
+                      ? columnWidth
+                      : (constraints.maxWidth - timeColumnWidth) / days.length,
+                ),
               ),
             ],
           ),
@@ -150,7 +156,9 @@ class TimetableGrid extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6)),
+          top: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6),
+          ),
         ),
       ),
       child: Row(
@@ -253,8 +261,11 @@ class _SlotCell extends StatelessWidget {
                     ),
                   ),
                   if (isSub)
-                    Icon(Icons.swap_horiz_rounded,
-                        size: 14, color: theme.colorScheme.tertiary),
+                    Icon(
+                      Icons.swap_horiz_rounded,
+                      size: 14,
+                      color: theme.colorScheme.tertiary,
+                    ),
                 ],
               ),
               const SizedBox(height: 2),
@@ -280,9 +291,6 @@ class _SlotCell extends StatelessWidget {
 
     if (!isSub) return cell;
 
-    return Tooltip(
-      message: 'Substitute for ${slot.teacher}',
-      child: cell,
-    );
+    return Tooltip(message: 'Substitute for ${slot.teacher}', child: cell);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../data/models/user_model.dart';
+import '../models/user_model.dart';
 
 /// Possible states the authentication flow can be in. The UI layer switches
 /// on this rather than inferring status from nullable fields.
