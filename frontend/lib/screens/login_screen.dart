@@ -4,12 +4,6 @@ import 'package:provider/provider.dart';
 import '../models/user_model.dart';
 import '../providers/auth_provider.dart';
 
-/// Entry-point auth screen: email, password, and a role selector, wired to
-/// [AuthProvider]. On successful (mock) authentication the user is routed
-/// to a dashboard route determined by their selected [UserRole].
-///
-/// Register these routes in `main.dart`'s `MaterialApp.routes`:
-/// `/admin-dashboard`, `/host-dashboard`, `/viewer-dashboard`.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
